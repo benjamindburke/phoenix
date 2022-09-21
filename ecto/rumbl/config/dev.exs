@@ -23,7 +23,7 @@ config :rumbl, RumblWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "d9IKbh+3qO5s02PtquERoLfRepesshGXKDXsduW1FF4fmAXQb/GaVqo6vTSYrMAK",
+  secret_key_base: "gAFroFUb7Mb0srzZol7g1oJP9uNltSH/jHS3rFR17+FF4Ks8J9hw7hHNBrQBDoh2",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
