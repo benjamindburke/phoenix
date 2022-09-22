@@ -38,6 +38,7 @@ defmodule Rumbl.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
+      {:pbkdf2_elixir, "~> 2.0"},
       {:phoenix, "~> 1.6.12"},
       {:phoenix_ecto, "~> 4.4"},
       {:plug_cowboy, "~> 2.5"},
