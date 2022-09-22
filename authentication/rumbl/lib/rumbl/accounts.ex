@@ -29,13 +29,13 @@ defmodule Rumbl.Accounts do
   @doc """
   Apply an Ecto.Changeset to a user.
   """
-  def change_user(%User{} = user) do
-    User.changeset(user, %{})
+  def change_registration(%User{} = user, params) do
+    User.registration_changeset(user, params)
   end
 
-  def create_user(attrs \\ %{}) do
+  def register_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 end
