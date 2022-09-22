@@ -21,7 +21,7 @@ defmodule RumblWeb.UserController do
     render(conn, "show.html", user: user)
   end
 
-  def create(conn, %{ "user" => user_params}) do
+  def create(conn, %{"user" => user_params}) do
     case Accounts.register_user(user_params) do
       {:ok, user} ->
         conn
