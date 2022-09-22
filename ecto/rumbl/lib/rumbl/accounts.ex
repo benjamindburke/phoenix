@@ -25,4 +25,17 @@ defmodule Rumbl.Accounts do
   Get a user that matches all parameters in the params. Supported `params` types are Map and Keyword.
   """
   def get_user_by(params), do: Repo.get_by(User, params)
+
+  @doc """
+  Apply an Ecto.Changeset to a user.
+  """
+  def change_user(%User{} = user) do
+    User.changeset(user, %{})
+  end
+
+  def create_user(attrs \\ %{}) do
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
+  end
 end
