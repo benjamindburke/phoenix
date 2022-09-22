@@ -2,23 +2,27 @@ defmodule Rumbl.Accounts do
   @moduledoc """
   The Accounts context.
   """
-
+  alias Rumbl.Repo
   alias Rumbl.Accounts.User
 
-  def list_users() do
-    [
-      %User{id: "1", name: "Jose", username: "josevalim"},
-      %User{id: "2", name: "Bruce", username: "redrapids"},
-      %User{id: "3", name: "Chris", username: "chrismccord"}
-    ]
-  end
+  @doc """
+  Get all users from the database.
+  """
+  def list_users, do: Repo.all(User)
 
-  def get_user(id) do
-    Enum.find(list_users(), &(&1.id == id))
-  end
+  @doc """
+  Get a user from the database from the primary key :id bigint.
+  """
+  def get_user(id), do: Repo.get(User, id)
 
-  def get_user_by(params) do
-    list_users()
-    |> Enum.find(&Enum.all?(params, fn {key, val} -> Map.get(&1, key) == val end))
-  end
+  @doc """
+  Get a user from the database from the primary key :id bigint.
+  Throws the error Ecto.NotFoundError when there are no results.
+  """
+  def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Get a user that matches all parameters in the params. Supported `params` types are Map and Keyword.
+  """
+  def get_user_by(params), do: Repo.get_by(User, params)
 end
