@@ -8,6 +8,10 @@ defmodule Rumbl.Multimedia do
   alias Rumbl.Multimedia.Category
   alias Rumbl.Multimedia.Video
 
+  def list_videos do
+    Repo.all(Video)
+  end
+
   @doc """
   Creates a category.
   """
@@ -55,6 +59,8 @@ defmodule Rumbl.Multimedia do
     |> user_videos_query(user)
     |> Repo.get!(id)
   end
+
+  def get_video!(id), do: Repo.get!(Video, id)
 
   defp user_videos_query(query, %Accounts.User{id: user_id}) do
     from(v in query, where: v.user_id == ^user_id)
