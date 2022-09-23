@@ -32,7 +32,12 @@ defmodule RumblWeb.ConnCase do
   end
 
   setup tags do
-    Rumbl.DataCase.setup_sandbox(tags)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Rumbl.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Rumbl.Repo, {:shared, self()})
+    end
+
+    :ok
   end
 end

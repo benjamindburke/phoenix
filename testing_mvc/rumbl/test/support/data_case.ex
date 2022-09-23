@@ -24,20 +24,18 @@ defmodule Rumbl.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Rumbl.DataCase
+      import Rumbl.TestHelpers
     end
   end
 
   setup tags do
-    Rumbl.DataCase.setup_sandbox(tags)
-    :ok
-  end
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Rumbl.Repo)
 
-  @doc """
-  Sets up the sandbox based on the test tags.
-  """
-  def setup_sandbox(tags) do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Rumbl.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Rumbl.Repo, {:shared, self()})
+    end
+
+    :ok
   end
 
   @doc """
