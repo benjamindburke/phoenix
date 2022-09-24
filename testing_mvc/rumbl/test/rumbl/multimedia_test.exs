@@ -4,7 +4,7 @@ defmodule Rumbl.MultimediaTest do
   alias Rumbl.Multimedia
 
   describe "categories" do
-    @test_categories String.codepoints("abcdef")
+    @test_categories String.codepoints("dabcef")
 
     test "list_alphabetical_categories/0" do
       @test_categories
@@ -12,9 +12,9 @@ defmodule Rumbl.MultimediaTest do
 
       alpha_names =
         Multimedia.list_alphabetical_categories()
-        |> Enum.map(&(&1.name))
+        |> Enum.map(& &1.name)
 
-      assert alpha_names == @test_categories
+      assert alpha_names == ["a", "b", "c", "d", "e", "f"]
     end
   end
 
@@ -52,7 +52,7 @@ defmodule Rumbl.MultimediaTest do
       assert {:error, %Ecto.Changeset{}} = Multimedia.create_video(owner, @invalid_attrs)
     end
 
-    test "update_video/3 with valid data updates the video", %{owner: owner} do
+    test "update_video/2 with valid data updates the video", %{owner: owner} do
       video = video_fixture(owner)
       assert {:ok, %Video{} = video} = Multimedia.update_video(video, %{title: "updated title"})
       assert video.title == "updated title"
