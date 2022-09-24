@@ -13,12 +13,14 @@ defmodule RumblWeb.VideoViewTest do
       %Video{id: "2", title: "cats"}
     ]
 
-    content = render_to_string(
-      RumblWeb.VideoView,
-      "index.html",
-      conn: conn,
-      videos: videos
-    )
+    content =
+      render_to_string(
+        RumblWeb.VideoView,
+        "index.html",
+        conn: conn,
+        videos: videos
+      )
+
     assert String.contains?(content, "Listing Videos")
 
     videos
