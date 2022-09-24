@@ -38,6 +38,6 @@ defmodule RumblWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Rumbl.Repo, {:shared, self()})
     end
 
-    :ok
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
