@@ -1,7 +1,8 @@
 // We import the CSS which is extracted to its own file by esbuild.
 // Remove this line if you add a your own CSS build pipeline (e.g postcss).
 import "../css/app.css"
-import Player from "./player";
+import Video from "./video";
+import socket from "./socket";
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
@@ -44,10 +45,4 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-let video = document.getElementById("video");
-
-if (video) {
-  Player.init(video.id, video.getAttribute("data-player-id"), () => {
-    console.log("player ready!");
-  })
-}
+Video.init(socket, document.getElementById("video"))
