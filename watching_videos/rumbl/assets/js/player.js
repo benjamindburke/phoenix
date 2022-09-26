@@ -1,4 +1,4 @@
-export default Player = {
+const Player = {
   player: null,
 
   init(domId, playerId, onReady) {
@@ -16,8 +16,8 @@ export default Player = {
       width: "480",
       videoId: playerId,
       events: {
-        onReady,
-        onStateChange: this.onPlayerStateChange,
+        onReady: event => onReady(event),
+        onStateChange: event => this.onPlayerStateChange(event),
       },
     });
   },
@@ -30,3 +30,5 @@ export default Player = {
     return this.onPlayerStateChange.seekTo(millsec / 1000);
   },
 };
+
+export default Player;
