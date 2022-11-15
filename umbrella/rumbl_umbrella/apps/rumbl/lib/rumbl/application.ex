@@ -11,7 +11,7 @@ defmodule Rumbl.Application do
       # Start the Ecto repository
       Rumbl.Repo,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Rumbl.PubSub},
+      {Phoenix.PubSub, name: Rumbl.PubSub}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
