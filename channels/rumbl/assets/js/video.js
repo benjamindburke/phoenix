@@ -33,10 +33,10 @@ const Video = {
       // (i.e. they have multiple tabs or browser windows open)
       // Presence will take care of grouping any duplicate user presences together
       // frontend will need to decide what to do with the metadata list
-      userList.innerHTML = presence.list((id, {metas: [first, ...rest]}) => {
+      userList.innerHTML = presence.list((id, {user, metas: [first, ...rest]}) => {
         // this count will track how many devices each user is connected from
         const count = rest.length + 1;
-        return `<li>${id}: (${count})</li>`;
+        return `<li>${user.username}: (${count})</li>`;
       }).join("");
     });
 
