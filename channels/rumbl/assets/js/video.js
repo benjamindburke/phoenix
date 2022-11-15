@@ -1,3 +1,4 @@
+import { Presence } from "phoenix";
 import Player from "./player";
 
 const Video = {
@@ -20,10 +21,24 @@ const Video = {
     const msgContainer = document.getElementById("msg-container");
     const msgInput     = document.getElementById("msg-input");
     const postButton   = document.getElementById("msg-submit");
+    const userList     = document.getElementById("user-list");
     const vidChannel   = socket.channel(
       "videos:" + videoId,
       () => ({last_seen_id: lastSeenId})
     );
+
+    const presence = new Presence(vidChannel);
+    presence.onSync(() => {
+      // if there are multiple user presences in the presence list,
+      // (i.e. they have multiple tabs or browser windows open)
+      // Presence will take care of grouping any duplicate user presences together
+      // frontend will need to decide what to do with the metadata list
+      userList.innerHTML = presence.list((id, {metas: [first, ...rest]}) => {
+        // this count will track how many devices each user is connected from
+        const count = rest.length + 1;
+        return `<li>${id}: (${count})</li>`;
+      }).join("");
+    });
 
     postButton.addEventListener("click", () => {
       const payload = { body: msgInput.value, at: Player.getCurrentTime() };
