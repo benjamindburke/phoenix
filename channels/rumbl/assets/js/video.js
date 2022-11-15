@@ -16,10 +16,14 @@ const Video = {
   },
 
   onReady(videoId, socket) {
+    let lastSeenId     = 0;
     const msgContainer = document.getElementById("msg-container");
     const msgInput     = document.getElementById("msg-input");
     const postButton   = document.getElementById("msg-submit");
-    const vidChannel   = socket.channel("videos:" + videoId);
+    const vidChannel   = socket.channel(
+      "videos:" + videoId,
+      () => ({last_seen_id: lastSeenId})
+    );
 
     postButton.addEventListener("click", () => {
       const payload = { body: msgInput.value, at: Player.getCurrentTime() };
@@ -39,11 +43,18 @@ const Video = {
     });
 
     vidChannel.on("new_annotation", resp => {
+      lastSeenId = resp.id;
       this.renderAnnotation(msgContainer, resp);
     });
 
     vidChannel.join()
-      .receive("ok", resp => { this.scheduleMessages(msgContainer, resp.annotations) })
+      .receive("ok", resp => {
+        const ids = resp.annotations.map(ann => ann.id);
+        if (ids.length > 0) {
+          lastSeenId = Math.max(...ids);
+        }
+        this.scheduleMessages(msgContainer, resp.annotations);
+      })
       .receive("error", reason => console.log("join failed", reason));
   },
 
