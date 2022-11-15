@@ -5,15 +5,16 @@ defmodule RumblWeb.Presence do
   See the [`Phoenix.Presence`](https://hexdocs.pm/phoenix/Phoenix.Presence.html)
   docs for more details.
   """
-  use Phoenix.Presence, otp_app: :rumbl,
-                        pubsub_server: Rumbl.PubSub
+  use Phoenix.Presence,
+    otp_app: :rumbl,
+    pubsub_server: Rumbl.PubSub
 
   def fetch(_topic, entries) do
     users =
       entries
       |> Map.keys()
       |> Rumbl.Accounts.list_users_with_ids()
-      |> Enum.into(%{}, &({to_string(&1.id), %{username: &1.username}}))
+      |> Enum.into(%{}, &{to_string(&1.id), %{username: &1.username}})
 
     for {key, %{metas: metas}} <- entries, into: %{} do
       # must preserve the :metas information because it has

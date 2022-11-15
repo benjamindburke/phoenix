@@ -42,13 +42,16 @@ defmodule RumblWeb.VideoChannel do
 
   def handle_info(:after_join, socket) do
     push(socket, "presence_state", RumblWeb.Presence.list(socket))
-    {:ok, _} = RumblWeb.Presence.track(
-      socket,
-      # unique user identity. in our schema each user_id is unique
-      socket.assigns.user_id,
-      # metadata is kept in the session for the life of the user
-      %{device: "browser"}
-    )
+
+    {:ok, _} =
+      RumblWeb.Presence.track(
+        socket,
+        # unique user identity. in our schema each user_id is unique
+        socket.assigns.user_id,
+        # metadata is kept in the session for the life of the user
+        %{device: "browser"}
+      )
+
     {:noreply, socket}
   end
 end

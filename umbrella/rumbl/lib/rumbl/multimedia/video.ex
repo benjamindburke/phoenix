@@ -39,7 +39,9 @@ defmodule Rumbl.Multimedia.Video do
   defp slugify(str) do
     str
     |> String.downcase()
-    |> String.replace(~r/\d,\d/u, fn <<digit1, ",", digit2>> -> List.to_string([digit1, digit2]) end)
+    |> String.replace(~r/\d,\d/u, fn <<digit1, ",", digit2>> ->
+      List.to_string([digit1, digit2])
+    end)
     |> String.replace(~r/[^\w-]+/u, "-")
   end
 end
