@@ -17,14 +17,13 @@ config :rumbl, Rumbl.Repo,
 # you can enable the server option below.
 config :rumbl_web, RumblWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "hYL8n8v6lb5n/24DyAgiA8qJ+lRnHE6M47+m5nHE2Z2BU4dhbluTtrlHNRbZ/ZDn",
+  secret_key_base: "qfwUNgZmvmS0e2FPscsGqsd4n6xA5cqd6XEhfY5PCF6ippNddAvlA6aTXVLESua0",
   server: false
-
-# Print only warnings and errors during test
-config :logger, level: :warn
 
 # In test we don't send emails.
 config :rumbl, Rumbl.Mailer, adapter: Swoosh.Adapters.Test
 
-# Initialize plugs at runtime for faster test compilation
-config :phoenix, :plug_init_mode, :runtime
+# Print only warnings and errors during test
+config :logger, level: :warn
+
+config :pbkdf2_elixir, :rounds, 1

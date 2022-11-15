@@ -23,10 +23,18 @@ config :rumbl_web, RumblWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "/3P+GEVYAqRHvINHhvig8XDxAeXUYQKnrom8z2pEQfXpQUuyJiYDaq9+6yCulYAY",
+  secret_key_base: "gAFroFUb7Mb0srzZol7g1oJP9uNltSH/jHS3rFR17+FF4Ks8J9hw7hHNBrQBDoh2",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    node: [
+      "node_modules/webpack/bin/webpack.js",
+      "--mode",
+      "development",
+      "--watch-stdin",
+      "--colors",
+      cd: Path.expand("../apps/rumbl_web/assets", __DIR__)
+    ]
   ]
 
 # ## SSL Support

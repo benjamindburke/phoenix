@@ -6,11 +6,15 @@ defmodule RumblWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_rumbl_web_key",
-    signing_salt: "s7uudad5"
+    key: "_rumbl_key",
+    signing_salt: "+/l+sRzu"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+
+  socket "/socket", RumblWeb.UserSocket,
+    websocket: true,
+    longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -28,7 +32,7 @@ defmodule RumblWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :rumbl_web
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :rumbl
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

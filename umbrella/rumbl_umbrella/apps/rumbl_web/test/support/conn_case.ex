@@ -22,7 +22,7 @@ defmodule RumblWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import RumblWeb.ConnCase
+      import Rumbl.TestHelpers
 
       alias RumblWeb.Router.Helpers, as: Routes
 
@@ -32,7 +32,12 @@ defmodule RumblWeb.ConnCase do
   end
 
   setup tags do
-    Rumbl.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Rumbl.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Rumbl.Repo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

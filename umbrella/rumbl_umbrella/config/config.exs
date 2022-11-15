@@ -13,6 +13,17 @@ import Config
 config :rumbl,
   ecto_repos: [Rumbl.Repo]
 
+config :rumbl_web,
+  ecto_repos: [Rumbl.Repo],
+  generators: [context_app: :rumbl]
+
+config :rumbl_web, RumblWeb.Endpoint,
+  url: [host: "localhost"],
+  render_errors: [view: RumblWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Rumbl.PubSub,
+  live_view: [signing_salt: "mTghffT+"],
+  server: true
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -24,17 +35,6 @@ config :rumbl, Rumbl.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
-
-config :rumbl_web,
-  ecto_repos: [Rumbl.Repo],
-  generators: [context_app: :rumbl]
-
-# Configures the endpoint
-config :rumbl_web, RumblWeb.Endpoint,
-  url: [host: "localhost"],
-  render_errors: [view: RumblWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Rumbl.PubSub,
-  live_view: [signing_salt: "afIi7DvK"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
