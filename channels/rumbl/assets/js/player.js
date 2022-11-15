@@ -2,7 +2,7 @@ const Player = {
   player: null,
 
   init(domId, playerId, onReady) {
-    window.onYoutubeIframeAPIReady = () => {
+    window.onYouTubeIframeAPIReady = () => {
       this.onIframeReady(domId, playerId, onReady);
     };
     let youtubeScriptTag = document.createElement("script");
