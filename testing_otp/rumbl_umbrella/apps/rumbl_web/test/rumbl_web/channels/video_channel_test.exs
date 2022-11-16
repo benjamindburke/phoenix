@@ -15,6 +15,7 @@ defmodule RumblWeb.Channels.VideoChannelTest do
     for body <- ~w(one two) do
       Rumbl.Multimedia.annotate_video(user, vid.id, %{body: body, at: 0})
     end
+
     {:ok, reply, socket} = subscribe_and_join(socket, "videos:#{vid.id}", %{})
 
     assert socket.assigns.video_id == vid.id
@@ -23,7 +24,7 @@ defmodule RumblWeb.Channels.VideoChannelTest do
 
   test "inserting new annotations", %{socket: socket, video: vid} do
     {:ok, _, socket} = subscribe_and_join(socket, "videos:#{vid.id}", %{})
-    ref = push socket, "new_annotation", %{body: "the body", at: 0}
+    ref = push(socket, "new_annotation", %{body: "the body", at: 0})
     assert_reply ref, :ok, %{}
     assert_broadcast "new_annotation", %{}
   end
@@ -33,7 +34,7 @@ defmodule RumblWeb.Channels.VideoChannelTest do
 
     {:ok, _, socket} = subscribe_and_join(socket, "videos:#{vid.id}", %{})
 
-    ref = push socket, "new_annotation", %{body: "1 + 1", at: 123}
+    ref = push(socket, "new_annotation", %{body: "1 + 1", at: 123})
     assert_reply ref, :ok, %{}
     assert_broadcast "new_annotation", %{body: "1 + 1", at: 123}
     assert_broadcast "new_annotation", %{body: "2", at: 123}

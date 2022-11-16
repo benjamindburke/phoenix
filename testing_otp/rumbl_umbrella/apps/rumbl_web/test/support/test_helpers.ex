@@ -35,5 +35,5 @@ defmodule RumblWeb.TestHelpers do
     {Plug.Conn.assign(conn, :current_user, user), user}
   end
 
-  def login(%{conn: conn}) , do: {conn, :logged_out}
+  def login(%{conn: conn}), do: {conn, :logged_out}
 end
