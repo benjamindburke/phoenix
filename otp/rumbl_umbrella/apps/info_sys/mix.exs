@@ -24,7 +24,7 @@ defmodule InfoSys.MixProject do
   def application do
     [
       mod: {InfoSys.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :inets]
     ]
   end
 
@@ -36,7 +36,9 @@ defmodule InfoSys.MixProject do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    []
+    [
+      {:sweet_xml, "~> 0.7.3"},
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

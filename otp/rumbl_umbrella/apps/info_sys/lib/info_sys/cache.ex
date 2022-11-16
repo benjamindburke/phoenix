@@ -5,7 +5,8 @@ defmodule InfoSys.Cache do
 
   def put(name \\ __MODULE__, key, value) do
     true = :ets.insert(tab_name(name), {key, value})
-    {:ok}
+
+    :ok
   end
 
   def fetch(name \\ __MODULE__, key) do
@@ -19,6 +20,8 @@ defmodule InfoSys.Cache do
     GenServer.start_link(__MODULE__, opts, name: opts[:name])
   end
 
+  @clear_interval :timer.seconds(60)
+
   def init(opts) do
     state = %{
       interval: opts[:clear_interval] || @clear_interval,
@@ -26,7 +29,7 @@ defmodule InfoSys.Cache do
       table: new_table(opts[:name])
     }
 
-    {:ok, state}
+    {:ok, schedule_clear(state)}
   end
 
   def handle_info(:clear, state) do
