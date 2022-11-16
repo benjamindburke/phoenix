@@ -13,7 +13,6 @@ defmodule InfoSys.Wolfram do
   def compute(query_str, _opts) do
     query_str
     |> fetch_xml()
-    |> IO.inspect()
     |> xpath(~x"/queryresult/pod[contains(@title, 'Result') or
                                  contains(@title, 'Definitions')]
                             /subpod/plaintext/text()")
@@ -34,7 +33,7 @@ defmodule InfoSys.Wolfram do
 
   defp url(input) do
     "#{@base}?" <>
-    URI.encode_query(appid: id(), input: input, format: "plaintext")
+      URI.encode_query(appid: id(), input: input, format: "plaintext")
   end
 
   defp id, do: Application.fetch_env!(:info_sys, :wolfram)[:app_id]

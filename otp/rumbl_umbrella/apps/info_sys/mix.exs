@@ -37,7 +37,7 @@ defmodule InfoSys.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:sweet_xml, "~> 0.7.3"},
+      {:sweet_xml, "~> 0.7.3"}
     ]
   end
 

@@ -45,12 +45,12 @@ defmodule InfoSys.Cache do
     name
     |> tab_name()
     |> :ets.new([
-        :set,
-        :named_table,
-        :public,
-        read_concurrency: true,
-        write_concurrency: true
-      ])
+      :set,
+      :named_table,
+      :public,
+      read_concurrency: true,
+      write_concurrency: true
+    ])
   end
 
   defp tab_name(name), do: :"#{name}_cache"
