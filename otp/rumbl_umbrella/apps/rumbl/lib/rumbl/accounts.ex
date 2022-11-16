@@ -38,6 +38,12 @@ defmodule Rumbl.Accounts do
   """
   def get_user_by(params), do: Repo.get_by(User, params)
 
+  def create_user(attrs \\ %{}) do
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Apply an Ecto.Changeset to a user.
   """
